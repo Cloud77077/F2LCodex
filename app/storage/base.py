@@ -1,0 +1,13 @@
+from abc import ABC, abstractmethod
+from collections.abc import AsyncIterator
+from pathlib import Path
+
+class Storage(ABC):
+    @abstractmethod
+    async def save(self, source: Path, key: str) -> None: ...
+    @abstractmethod
+    async def open(self, key: str, start: int = 0, end: int | None = None) -> AsyncIterator[bytes]: ...
+    @abstractmethod
+    async def delete(self, key: str) -> None: ...
+    @abstractmethod
+    def local_path(self, key: str) -> Path | None: ...
